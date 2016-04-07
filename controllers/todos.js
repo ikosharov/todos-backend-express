@@ -23,7 +23,7 @@ module.exports.createTodo = function(req, res){
   todo.save(function(err) {
     if (err) { res.send(err); }
 
-    res.json({ message: 'todo created!' });
+    res.json(todo);
   });
 };
 
