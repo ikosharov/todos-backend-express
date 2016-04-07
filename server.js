@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 mongoose.connect(API_ROOT);
 
-var port = 8080;
+var port = process.env.PORT || 1337;
 
 // configure routing
 app.use('/api', router);
