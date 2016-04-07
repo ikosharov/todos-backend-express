@@ -3,7 +3,6 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose   = require('mongoose');
 
-var Todo = require('./models/todo');
 var API_ROOT = require('./web.config');
 var router = require('./routes/routes')
 
