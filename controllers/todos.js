@@ -44,13 +44,21 @@ module.exports.updateTodo = function(req, res){
   }
 
   Todo.update(condition, update, function(err, affectedRows, rawResponse){
-    if(err) { res.send(err); }
+    if(err) {
+      res.send(err);
+    } else {
+      res.sendStatus(200);
+    }
   });
 };
 
 module.exports.deleteTodo = function(req, res){
   var condition = {_id: req.params.id};
   Todo.remove(condition, function(err){
-    if(err) { res.send(err); }
+    if(err) {
+      res.send(err);
+    } else {
+      res.sendStatus(204);
+    }
   });
 }
