@@ -27,5 +27,6 @@ var port = process.env.PORT || 1337;
 // configure routing
 app.use('/api', router);
 
-app.listen(port);
-console.log("listening on port: " + port);
+app.listen(port, function(){
+  console.log("listening on port: " + port);
+});
