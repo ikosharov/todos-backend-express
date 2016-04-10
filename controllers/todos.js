@@ -35,7 +35,7 @@ module.exports.updateTodo = function(req, res){
     update.title = req.body.title;
   }
 
-  if(req.body.isDone){
+  if(typeof(req.body.isDone) != 'undefined'){
     update.isDone = req.body.isDone;
   }
 
