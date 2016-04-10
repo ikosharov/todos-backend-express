@@ -31,7 +31,7 @@ module.exports.updateTodo = function(req, res){
   var condition = {_id: req.params.id};
   var update = {};
 
-  if(req.body.title){
+  if(typeof(req.body.title) != 'undefined'){
     update.title = req.body.title;
   }
 
@@ -39,7 +39,7 @@ module.exports.updateTodo = function(req, res){
     update.isDone = req.body.isDone;
   }
 
-  if(req.body.title){
+  if(typeof(req.body.dueDate) != 'undefined'){
     update.dueDate = req.body.dueDate;
   }
 
