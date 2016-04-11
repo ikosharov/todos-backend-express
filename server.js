@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 mongoose.connect(API_ROOT);
 
-var port = process.env.PORT || 1337;
+var port = process.env.PORT || 3000;
 
 // configure routing
 app.use('/api', router);
