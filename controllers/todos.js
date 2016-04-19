@@ -2,28 +2,40 @@ var Todo = require('../models/todo');
 
 module.exports.getTodos = function(req, res){
   Todo.find(function(err, todos) {
-    if (err) { res.send(err); }
-    res.json(todos);
+    if (err) {
+      res.send(err);
+    }
+    else {
+      res.json(todos);
+    }
   });
 };
 
 module.exports.getTodo = function(req, res){
   Todo.findById(req.params.id, function(err, todo) {
-    if (err) { res.send(err); }
-    res.json(todo);
+    if (err) {
+      res.send(err);
+    }
+    else {
+      res.json(todo);
+    }
   });
 };
 
 module.exports.createTodo = function(req, res){
-  var todo = new Todo();
-  todo.title = req.body.title;
-  todo.isDone = req.body.isDone;
-  todo.dueDate = req.body.dueDate;
+  var todo = new Todo({
+    title: req.body.title,
+    isDone: req.body.isDone,
+    dueDate: req.body.dueDate
+  });
 
   todo.save(function(err) {
-    if (err) { res.send(err); }
-
-    res.json(todo);
+    if (err) {
+      res.send(err);
+    }
+    else {
+      res.json(todo);
+    }
   });
 };
 
