@@ -16,7 +16,7 @@ module.exports.login = function(req, res) {
   }
 
   usersController.validateUser(username, password, function(err, result){
-    if (err || result.length == 0) {
+    if (err || result == null || result.length == 0) {
       res.status(401);
       res.json({ "status": 401, "message": "Invalid credentials" });
       return;

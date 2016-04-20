@@ -29,7 +29,7 @@ module.exports.getUser = function(req, res) {
 // BODY Content-Type: application/json
 // BODY {'username': 'myUser', 'password', 'myPassword'}
 module.exports.createUser = function(req, res) {
-  var condition = { username: req.params.username };
+  var condition = { username: req.body.username };
   User.find(condition, function(err, result) {
     if(result.length == 0){
       var entry = new User({
@@ -53,10 +53,11 @@ module.exports.createUser = function(req, res) {
   });
 };
 
-module.exports.validateUser = function(username, password, cb) {
+module.exports.validateUser = function(uname, pass, cb) {
   console.log("validate user");
-  var condition = { username: username, password: password };
-  User.findOne(condition, function(err, result) {
+  var condition = { username: uname, password: pass };
+  User.find(condition, function(err, result) {
+    console.log(result);
     cb(err, result);
   });
 };
@@ -64,7 +65,7 @@ module.exports.validateUser = function(username, password, cb) {
 module.exports.userExists = function(username, cb) {
   console.log("user exists");
   var condition = { username: username };
-  User.findOne(condition, function(err, result) {
+  User.find(condition, function(err, result) {
     cb(err, result);
   });
 };
