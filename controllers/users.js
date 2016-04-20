@@ -52,3 +52,19 @@ module.exports.createUser = function(req, res) {
     }
   });
 };
+
+module.exports.validateUser = function(username, password, cb) {
+  console.log("validate user");
+  var condition = { username: username, password: password };
+  User.findOne(condition, function(err, result) {
+    cb(err, result);
+  });
+};
+
+module.exports.userExists = function(username, cb) {
+  console.log("user exists");
+  var condition = { username: username };
+  User.findOne(condition, function(err, result) {
+    cb(err, result);
+  });
+};

@@ -1,6 +1,7 @@
 var express = require('express');
 var todosController = require('../controllers/todos');
 var usersController = require('../controllers/users');
+var authController = require('../controllers/auth');
 
 var router = express.Router();
 
@@ -8,27 +9,31 @@ router.get('/', function(req, res){
   res.end('hello from todos API');
 });
 
-router.get('/users', function(req, res){
+router.post('/login', function(req, res){
+  authController.login(req, res);
+});
+
+router.get('/api/users', function(req, res){
   return usersController.getUsers(req, res);
 });
 
-router.get('/users/:username', function(req, res){
+router.get('/api/users/:username', function(req, res){
   return usersController.getUser(req, res);
 });
 
-router.post('/users', function(req, res){
+router.post('/api/users', function(req, res){
   return usersController.createUser(req, res);
 });
 
-router.get('/users/:username/todos', function(req, res){
+router.get('/api/users/:username/todos', function(req, res){
   return todosController.getTodos(req, res);
 });
 
-router.get('/users/:username/todos/:id', function(req, res){
+router.get('/api/users/:username/todos/:id', function(req, res){
   return todosController.getTodo(req, res);
 });
 
-router.post('/users/:username/todos', function(req, res){
+router.post('/api/users/:username/todos', function(req, res){
   return todosController.createTodo(req, res);
 });
 
