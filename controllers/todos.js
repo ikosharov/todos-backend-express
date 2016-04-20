@@ -1,6 +1,7 @@
 var Todo = require('../models/todo');
 
-module.exports.getTodos = function(req, res){
+// GET http://host/api/users/:username/todos
+module.exports.getTodos = function(req, res) {
   Todo.find(function(err, todos) {
     if (err) {
       res.send(err);
