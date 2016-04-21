@@ -1,6 +1,7 @@
 var Todo = require('../models/todo');
 
-// GET http://host/api/users/:username/todos
+// GET http://host/api/users/:username/todos?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
 module.exports.getTodos = function(req, res) {
   Todo.find(function(err, todos) {
     if (err) {
@@ -12,6 +13,8 @@ module.exports.getTodos = function(req, res) {
   });
 };
 
+// GET http://host/api/users/:username/todos/:id?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
 module.exports.getTodo = function(req, res){
   Todo.findById(req.params.id, function(err, todo) {
     if (err) {
@@ -23,6 +26,9 @@ module.exports.getTodo = function(req, res){
   });
 };
 
+// POST http://host/api/users/:username/todos?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
+// BODY: {"title": "some title", "isDone": false, "dueDate": DateObject}
 module.exports.createTodo = function(req, res){
   var todo = new Todo({
     title: req.body.title,
@@ -40,6 +46,9 @@ module.exports.createTodo = function(req, res){
   });
 };
 
+// PUT http://host/api/users/:username/todos/:id?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
+// BODY: {"title": "some title", "isDone": false, "dueDate": DateObject}
 module.exports.updateTodo = function(req, res){
   var condition = {_id: req.params.id};
   var update = {};
@@ -65,6 +74,8 @@ module.exports.updateTodo = function(req, res){
   });
 };
 
+// DELETE http://host/api/users/:username/todos/:id?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
 module.exports.deleteTodo = function(req, res){
   var condition = {_id: req.params.id};
   Todo.remove(condition, function(err){

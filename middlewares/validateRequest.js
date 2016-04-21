@@ -7,7 +7,7 @@ module.exports = function(req, res, next) {
   var username = (req.body && req.body.username) || (req.query && req.query.username);
 
   console.log('validating request...');
-  if(token || username) {
+  if(token && username) {
     var decoded = jwt.decode(token, config.SECRET);
 
     if (decoded.exp <= Date.now()) {
@@ -21,22 +21,23 @@ module.exports = function(req, res, next) {
 
     usersController.userExists(username, function(err, result){
       if(err || result.length == 0){
-        res.status(403);
+        res.status(401);
         res.json({
-          "status": 403,
-          "message": "Not Authorized"
+          "status": 401,
+          "message": "Invalid user"
         });
       }
       else {
+        console.log('request authenticated!');
         next();
       }
     });
   }
   else {
-    res.status(403);
+    res.status(401);
     res.json({
-      "status": 403,
-      "message": "Not Authorized"
+      "status": 401,
+      "message": "Invalid token or username"
     });
   }
 }

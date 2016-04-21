@@ -25,7 +25,7 @@ mongoose.connect(config.API_ROOT);
 
 var port = process.env.PORT || 3000;
 
-app.all('/api', validateReqeust);
+app.all('/api/*', validateReqeust);
 
 // configure routing
 app.use('/', router);

@@ -2,6 +2,9 @@ var jwt = require('jwt-simple');
 var config = require('../web.config');
 var usersController = require('./users');
 
+// POST http://host/login
+// HEADERS: Content-Type: application/json
+// BODY { "username": "myUsername", "password": "myPassword"}
 module.exports.login = function(req, res) {
   var username = req.body.username || '';
   var password = req.body.password || '';

@@ -1,6 +1,7 @@
 var User = require('../models/user');
 
-// GET http://host/api/users
+// GET http://host/api/users?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
 module.exports.getUsers = function(req, res) {
   User.find('username', function(err, results) {
     if (err) {
@@ -12,7 +13,8 @@ module.exports.getUsers = function(req, res) {
   });
 };
 
-// GET http://host/api/users/:username
+// GET http://host/api/users/:username?access_token={token}&username={username}
+// HEADERS: Content-Type: application/json
 module.exports.getUser = function(req, res) {
   var condition = { username: req.params.username };
   User.findOne(condition, function(err, result) {
@@ -26,7 +28,7 @@ module.exports.getUser = function(req, res) {
 };
 
 // POST http://host/api/users
-// BODY Content-Type: application/json
+// HEADERS Content-Type: application/json
 // BODY {'username': 'myUser', 'password', 'myPassword'}
 module.exports.createUser = function(req, res) {
   var condition = { username: req.body.username };
