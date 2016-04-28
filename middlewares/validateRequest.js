@@ -3,13 +3,13 @@ var config = require('../web.config');
 var usersController = require('../controllers/users');
 
 module.exports = function(req, res, next) {
-  var token = (req.body && req.body.access_token) || (req.query && req.query.access_token);
-  var username = (req.body && req.body.username) || (req.query && req.query.username);
+  // var token = (req.body && req.body.access_token) || (req.query && req.query.access_token);
+  var token = req.query.access_token;
 
   console.log('validating request...');
-  if(token && username) {
+  if(token) {
     var decoded = jwt.decode(token, config.SECRET);
-
+    
     if (decoded.exp <= Date.now()) {
       res.status(400);
       res.json({
@@ -19,7 +19,7 @@ module.exports = function(req, res, next) {
       return;
     }
 
-    usersController.userExists(username, function(err, result){
+    usersController.userExists(decoded.user.username, function(err, result){
       if(err || result.length == 0){
         res.status(401);
         res.json({

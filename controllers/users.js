@@ -1,6 +1,6 @@
 var User = require('../models/user');
 
-// GET http://host/api/users?access_token={token}&username={username}
+// GET http://host/api/users?access_token={token}
 // HEADERS: Content-Type: application/json
 module.exports.getUsers = function(req, res) {
   User.find('username', function(err, results) {
@@ -13,7 +13,7 @@ module.exports.getUsers = function(req, res) {
   });
 };
 
-// GET http://host/api/users/:username?access_token={token}&username={username}
+// GET http://host/api/users/:username?access_token={token}
 // HEADERS: Content-Type: application/json
 module.exports.getUser = function(req, res) {
   var condition = { username: req.params.username };

@@ -25,23 +25,22 @@ module.exports.login = function(req, res) {
       return;
     }
 
-    var token = genToken(result);
+    var user = { 
+      "username": result[0].username, 
+      "password": result[0].password 
+    };
+    
+    var token = genToken(user);
     res.json(token);
   });
 };
 
 // private method
 function genToken(user) {
-  var expires = expiresIn(1); // 7 days
-  var token = jwt.encode({
-    exp: expires
-  }, config.SECRET);
+  var expires = expiresIn(1);
+  var token = jwt.encode({ "exp": expires, "user": user }, config.SECRET);
 
-  return {
-    token: token,
-    expires: expires,
-    user: user
-  };
+  return { "token": token };
 }
 
 function expiresIn(numDays) {

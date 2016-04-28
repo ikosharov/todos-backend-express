@@ -1,19 +1,22 @@
 var Todo = require('../models/todo');
+var User = require('../models/user');
+var jwt = require('jwt-simple');
+var config = require('../web.config');
 
-// GET http://host/api/users/:username/todos?access_token={token}&username={username}
+// GET http://host/api/todos?access_token={token}&username={username}
 // HEADERS: Content-Type: application/json
 module.exports.getTodos = function(req, res) {
-  Todo.find(function(err, todos) {
-    if (err) {
-      res.send(err);
-    }
-    else {
-      res.json(todos);
-    }
+  var token = req.query.access_token;
+  var decoded = jwt.decode(token, config.SECRET);
+  
+  var condition = { username: decoded.user.username };
+  
+  User.findOne(condition, function(err, user){
+    res.json(user.todos)
   });
 };
 
-// GET http://host/api/users/:username/todos/:id?access_token={token}&username={username}
+// GET http://host/api/todos/:id?access_token={token}&username={username}
 // HEADERS: Content-Type: application/json
 module.exports.getTodo = function(req, res){
   Todo.findById(req.params.id, function(err, todo) {
@@ -26,7 +29,7 @@ module.exports.getTodo = function(req, res){
   });
 };
 
-// POST http://host/api/users/:username/todos?access_token={token}&username={username}
+// POST http://host/api/todos?access_token={token}&username={username}
 // HEADERS: Content-Type: application/json
 // BODY: {"title": "some title", "isDone": false, "dueDate": DateObject}
 module.exports.createTodo = function(req, res){
@@ -46,7 +49,7 @@ module.exports.createTodo = function(req, res){
   });
 };
 
-// PUT http://host/api/users/:username/todos/:id?access_token={token}&username={username}
+// PUT http://host/api/todos/:id?access_token={token}&username={username}
 // HEADERS: Content-Type: application/json
 // BODY: {"title": "some title", "isDone": false, "dueDate": DateObject}
 module.exports.updateTodo = function(req, res){
@@ -74,7 +77,7 @@ module.exports.updateTodo = function(req, res){
   });
 };
 
-// DELETE http://host/api/users/:username/todos/:id?access_token={token}&username={username}
+// DELETE http://host/api/todos/:id?access_token={token}&username={username}
 // HEADERS: Content-Type: application/json
 module.exports.deleteTodo = function(req, res){
   var condition = {_id: req.params.id};

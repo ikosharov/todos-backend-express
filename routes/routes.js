@@ -25,23 +25,23 @@ router.post('/api/users', function(req, res){
   return usersController.createUser(req, res);
 });
 
-router.get('/api/users/:username/todos', function(req, res){
+router.get('/api/todos', function(req, res){
   return todosController.getTodos(req, res);
 });
 
-router.get('/api/users/:username/todos/:id', function(req, res){
+router.get('/api/todos/:id', function(req, res){
   return todosController.getTodo(req, res);
 });
 
-router.post('/api/users/:username/todos', function(req, res){
+router.post('/api/todos', function(req, res){
   return todosController.createTodo(req, res);
 });
 
-router.put('/users/:username/todos/:id', function(req, res){
+router.put('/users/todos/:id', function(req, res){
   return todosController.updateTodo(req, res);
 });
 
-router.delete('/users/:username/todos/:id', function(req, res){
+router.delete('/users/todos/:id', function(req, res){
   return todosController.deleteTodo(req, res);
 });
 
