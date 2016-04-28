@@ -37,11 +37,11 @@ router.post('/api/todos', function(req, res){
   return todosController.createTodo(req, res);
 });
 
-router.put('/users/todos/:id', function(req, res){
+router.put('/api/todos/:id', function(req, res){
   return todosController.updateTodo(req, res);
 });
 
-router.delete('/users/todos/:id', function(req, res){
+router.delete('/api/todos/:id', function(req, res){
   return todosController.deleteTodo(req, res);
 });
 
