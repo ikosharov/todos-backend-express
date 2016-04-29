@@ -4,14 +4,15 @@ var jwt = require('jwt-simple');
 var config = require('../web.config');
 
 extractUserData = function(req) {
-  var token = req.query.access_token;
+  var token = req.headers["access_token"];
   var decoded = jwt.decode(token, config.SECRET);
   
   return decoded.user;
 }
 
-// GET http://host/api/todos?access_token={token}
+// GET http://host/api/todos
 // HEADERS: Content-Type: application/json
+// HEADERS: access_token: {token}
 module.exports.getTodos = function(req, res) {
   var user = extractUserData(req);
   
@@ -20,8 +21,9 @@ module.exports.getTodos = function(req, res) {
   });
 };
 
-// GET http://host/api/todos/:id?access_token={token}
+// GET http://host/api/todos/:id
 // HEADERS: Content-Type: application/json
+// HEADERS: access_token: {token}
 module.exports.getTodo = function(req, res){
   var user = extractUserData(req);
   
@@ -31,9 +33,10 @@ module.exports.getTodo = function(req, res){
   });
 };
 
-// POST http://host/api/todos?access_token={token}
+// POST http://host/api/todos
 // HEADERS: Content-Type: application/json
-// BODY: {"title": "some title", "isDone": false, "dueDate": DateObject}
+// HEADERS: access_token: {token}
+// BODY: {"title": "some title", "isDone": false, "dueDate": "date string"}
 module.exports.createTodo = function(req, res){
   var user = extractUserData(req);
   
@@ -52,9 +55,10 @@ module.exports.createTodo = function(req, res){
   });
 };
 
-// PUT http://host/api/todos/:id?access_token={token}
+// PUT http://host/api/todos/:id
 // HEADERS: Content-Type: application/json
-// BODY: {"title": "some title", "isDone": false, "dueDate": DateObject}
+// HEADERS: access_token: {token}
+// BODY: {"title": "some title", "isDone": false, "dueDate": "date string"}
 module.exports.updateTodo = function(req, res){
    var user = extractUserData(req);
   
@@ -82,8 +86,9 @@ module.exports.updateTodo = function(req, res){
    });
 };
 
-// DELETE http://host/api/todos/:id?access_token={token}
+// DELETE http://host/api/todos/:id
 // HEADERS: Content-Type: application/json
+// HEADERS: access_token: {token}
 module.exports.deleteTodo = function(req, res){
    var user = extractUserData(req);
   

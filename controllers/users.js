@@ -3,14 +3,15 @@ var jwt = require('jwt-simple');
 var config = require('../web.config');
 
 extractUserData = function(req) {
-  var token = req.query.access_token;
+  var token = req.headers["access_token"];
   var decoded = jwt.decode(token, config.SECRET);
   
   return decoded.user;
 }
 
-// GET http://host/api/users?access_token={token}
+// GET http://host/api/users
 // HEADERS: Content-Type: application/json
+// HEADERS: access_token: {token}
 module.exports.getUsers = function(req, res) {
   User.find(function(err, users) {
     if (err) { res.send(err); }
@@ -18,8 +19,9 @@ module.exports.getUsers = function(req, res) {
   });
 };
 
-// GET http://host/api/users/:username?access_token={token}
+// GET http://host/api/users/:username
 // HEADERS: Content-Type: application/json
+// HEADERS: access_token: {token}
 module.exports.getUser = function(req, res) {
   User.findOne({ username: req.params.username }, function(err, result) {
     if (err) { res.send(err); }
