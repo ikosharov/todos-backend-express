@@ -2,7 +2,6 @@ var Todo = require('../models/todo');
 var User = require('../models/user');
 var jwt = require('jwt-simple');
 var config = require('../web.config');
-var _ = require('lodash');
 
 extractUserData = function(req) {
   var token = req.query.access_token;
@@ -16,8 +15,8 @@ extractUserData = function(req) {
 module.exports.getTodos = function(req, res) {
   var user = extractUserData(req);
   
-  User.findOne({ username: user.username }, function(err, entry){
-    res.json(entry.todos);
+  User.findOne({ username: user.username }, function(err, userEntry){
+    res.json(userEntry.todos);
   });
 };
 
@@ -26,12 +25,9 @@ module.exports.getTodos = function(req, res) {
 module.exports.getTodo = function(req, res){
   var user = extractUserData(req);
   
-  User.findOne({ username: user.username }, function(err, entry){
-    var indexOfTodo = _.findIndex(entry.todos, function(t){
-      return t._id == req.query.id;
-    });
-    
-    res.json(entry.todos[indexOfTodo]);
+  User.findOne({ username: user.username }, function(err, userEntry){
+    var todo = userEntry.todos.id(req.params.id);
+    res.json(todo);
   });
 };
 
@@ -47,9 +43,9 @@ module.exports.createTodo = function(req, res){
     dueDate: req.body.dueDate
   });
 
-  User.findOne({ username: user.username }, function(err, entry){
-    entry.todos.push(todo);
-    entry.save(function(err){
+  User.findOne({ username: user.username }, function(err, userEntry){
+    userEntry.todos.push(todo);
+    userEntry.save(function(err){
       if (err) { res.send(err); }
       else { res.json(todo); }  
     });
@@ -63,12 +59,8 @@ module.exports.updateTodo = function(req, res){
    var user = extractUserData(req);
   
    User.findOne({ username: user.username }, function(err, entry){
-     var indexOfTask = _.findIndex(entry.todos, function(t){
-       return t._id.toString() == req.query.id;
-     });
-
      // capture previous state     
-     var updatedTask = entry.todos[indexOfTask];
+     var updatedTask = entry.todos.id(req.params.id);
 
      // update with whatever was sent with the request
      if(typeof(req.body.title) != 'undefined'){
@@ -83,7 +75,7 @@ module.exports.updateTodo = function(req, res){
         updatedTask.dueDate = req.body.dueDate;
      }
      
-     entry.update(updatedTask, function(err, affectedRows, rawResponse){
+     entry.save(function(err){
        if(err) { res.send(err); }
        else { res.sendStatus(200); }
      });
@@ -95,11 +87,11 @@ module.exports.updateTodo = function(req, res){
 module.exports.deleteTodo = function(req, res){
    var user = extractUserData(req);
   
-   User.findOne({ username: user.username }, function(err, entry){
-     _.remove(entry.todos, function(t){
-       return t._id.toString() == req.query.id;
-     });
-     entry.save(function(err){
+   User.findOne({ username: user.username }, function(err, userEntry){
+     var todo = userEntry.todos.id(req.params.id);
+     todo.remove();
+     
+     userEntry.save(function(err){
        if(err) { res.send(err); }
        else { res.sendStatus(204); }
      });

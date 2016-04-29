@@ -1,7 +1,6 @@
 var User = require('../models/user');
 var jwt = require('jwt-simple');
 var config = require('../web.config');
-var _ = require('lodash');
 
 extractUserData = function(req) {
   var token = req.query.access_token;
