@@ -10,7 +10,6 @@ var validateReqeust = require('./middlewares/validateRequest');
 
 var app = express();
 
-// configure app to allow controllers
 app.use(cors());
 
 // configure app to use bodyParser(). this will let us get the data from a POST
