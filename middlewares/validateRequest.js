@@ -7,8 +7,10 @@ module.exports = function(req, res, next) {
   var token = req.headers["access_token"];
 
   console.log('validating request...');
+  
   if(token) {
     var decoded = jwt.decode(token, config.SECRET);
+    console.log('access_token successfully decoded');
     
     if (decoded.exp <= Date.now()) {
       res.status(400);
@@ -19,6 +21,8 @@ module.exports = function(req, res, next) {
       return;
     }
 
+    console.log("access_token valid!");
+    
     usersController.userExists(decoded.user.username, function(err, result){
       if(err || result.length == 0){
         res.status(401);

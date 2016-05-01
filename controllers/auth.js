@@ -9,9 +9,6 @@ module.exports.login = function(req, res) {
   var username = req.body.username || '';
   var password = req.body.password || '';
 
-  console.log(username);
-  console.log(password);
-
   if (username == '' || password == '') {
     res.status(401);
     res.json({ "status": 401, "message": "Invalid credentials" });
@@ -26,8 +23,7 @@ module.exports.login = function(req, res) {
     }
 
     var user = { 
-      "username": result[0].username, 
-      "password": result[0].password 
+      "username": result[0].username
     };
     
     var token = genToken(user);
