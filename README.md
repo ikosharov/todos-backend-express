@@ -1,4 +1,4 @@
-# REST API using nodeJS + express
+# REST API using NodeJS + ExpressJS + MongooseJS
 Live demo at: https://todos-backend-express.herokuapp.com/
 
 ### To run locally:
