@@ -1,5 +1,5 @@
 # REST API using nodeJS + express
-Live demo at: https://todos-backend.herokuapp.com/api/todos/
+Live demo at: https://todos-backend-express.herokuapp.com/
 
 ### To run locally:
 1. npm install
