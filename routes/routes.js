@@ -17,14 +17,6 @@ router.post('/signup', function(req, res){
   authController.signup(req, res);
 });
 
-router.get('/api/users', function(req, res){
-  return usersController.getUsers(req, res);
-});
-
-router.get('/api/users/:username', function(req, res){
-  return usersController.getUser(req, res);
-});
-
 router.get('/api/todos', function(req, res){
   return todosController.getTodos(req, res);
 });

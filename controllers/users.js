@@ -9,26 +9,6 @@ extractUserData = function(req) {
   return decoded.user;
 }
 
-// GET http://host/api/users
-// HEADERS: Content-Type: application/json
-// HEADERS: access_token: {token}
-module.exports.getUsers = function(req, res) {
-  User.find(function(err, users) {
-    if (err) { res.send(err); }
-    else { res.json(users); }
-  });
-};
-
-// GET http://host/api/users/:username
-// HEADERS: Content-Type: application/json
-// HEADERS: access_token: {token}
-module.exports.getUser = function(req, res) {
-  User.findOne({ username: req.params.username }, function(err, result) {
-    if (err) { res.send(err); }
-    else { res.json(result); }
-  });
-};
-
 module.exports.createUser = function(req, res, cb) {
   User.find({ username: req.body.username }, function(err, users) {
     if(users.length == 0){
