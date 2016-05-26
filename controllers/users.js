@@ -29,10 +29,7 @@ module.exports.getUser = function(req, res) {
   });
 };
 
-// POST http://host/api/users
-// HEADERS Content-Type: application/json
-// BODY {'username': 'myUser', 'password', 'myPassword'}
-module.exports.createUser = function(req, res) {
+module.exports.createUser = function(req, res, cb) {
   User.find({ username: req.body.username }, function(err, users) {
     if(users.length == 0){
       var entry = new User({
@@ -42,12 +39,9 @@ module.exports.createUser = function(req, res) {
       });
 
       entry.save(function(error) {
-        if (error) { res.send(error); }
-        else { res.json(entry); }
+        if (error) { cb(error); }
+        else { cb(null); }
       });
-    }
-    else {
-      // send error
     }
   });
 };

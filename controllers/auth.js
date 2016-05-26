@@ -31,6 +31,42 @@ module.exports.login = function(req, res) {
   });
 };
 
+// POST http://host/signup
+// HEADERS: Content-Type: application/json
+// BODY { "username": "myuser", "password": "mypass" }
+module.exports.signup = function(req, res) {
+  var username = req.body.username || '';
+  var password = req.body.password || '';
+
+  if (username == '' || password == '') {
+    res.status(500);
+    res.json({ "status": 500, "message": "Please provide valid credentials" });
+    return;
+  }
+  
+  usersController.userExists(username, function(err, result){
+    if(result.length > 0) {
+      res.status(500);
+      res.json({ "status": 500, "message": "user already exists" });
+      return;
+    } else {
+      usersController.createUser(req, res, function(creationError){
+        if(creationError) {
+          res.status(500);
+          res.json({ "status": 500, "message": creationError });
+        } else {
+          var user = { 
+            "username": username
+          };
+          
+          var token = genToken(user);
+          res.json(token);
+        }
+      });      
+    }
+  });
+};
+
 // private method
 function genToken(user) {
   var expires = expiresIn(1);
