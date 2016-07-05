@@ -1,5 +1,5 @@
 {
-  "name": "todos-backend-express",
+  "name": "todos-backend-express-v2",
   "version": "1.0.0",
   "description": "inspired by https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ikosharov/todos-backend-express.git"
+    "url": "git+https://github.com/ikosharov/todos-backend-express-v2.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ikosharov/todos-backend-express/issues"
+    "url": "https://github.com/ikosharov/todos-backend-express-v2/issues"
   },
-  "homepage": "https://github.com/ikosharov/todos-backend-express#readme",
+  "homepage": "https://github.com/ikosharov/todos-backend-express-v2#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "cors": "^2.7.1",
