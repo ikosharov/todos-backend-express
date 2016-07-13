@@ -5,6 +5,7 @@ var _ = require('lodash');
 
 describe('Routing', function () {
 	var url = config.PRODUCTION_URL;
+	//var url = config.DEV_URL;
 
 	var generateRandomString = function () {
 		var randomNumStr = Math.random().toString();
