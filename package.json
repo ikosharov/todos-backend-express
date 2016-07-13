@@ -4,8 +4,8 @@
   "description": "inspired by https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4",
   "main": "index.js",
   "scripts": {
-    "test-debug": "mocha tests/routes.js --debug-brk",
-    "test": "mocha tests/routes.js"
+    "test-debug": "mocha test/routes.js --debug-brk",
+    "test": "mocha test/routes.js"
 
   },
   "repository": {
