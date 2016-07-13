@@ -6,7 +6,6 @@
   "scripts": {
     "test-debug": "mocha test/routes.js --debug-brk",
     "test": "mocha test/routes.js"
-
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,7 @@
     "mongoose": "^4.4.11"
   },
   "devDependencies": {
+    "lodash": "^4.13.1",
     "mocha": "^2.5.3",
     "should": "^9.0.2",
     "supertest": "^1.2.0"
