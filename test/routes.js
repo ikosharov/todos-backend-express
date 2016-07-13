@@ -34,8 +34,6 @@ describe('Routing', function () {
 				assert.equal(200, res.status);
 				assert(res.body.token);
 
-				// create at least one todo
-
 				request(url)
 					.post("/api/todos")
 					.set('access_token', res.body.token)
@@ -145,25 +143,32 @@ describe('Routing', function () {
 				.post('/login')
 				.send(commonUser)
 				.end(function (err, res) {
+					var token = res.body.token;
 					request(url)
 						.post("/api/todos")
 						.send(todo)
-						.set('access_token', res.body.token)
+						.set('access_token', token)
 						.end(function (err, res) {
 							if (err) {
 								throw err;
 							}
 
 							assert.equal(200, res.status);
-							assert.ok(res._id);
-							assert.ok(res.title);
-							assert.ok(res.dueDate);
-							assert.ok(res.isDone != null);
+							assert.ok(res.body._id);
+							assert.ok(res.body.title);
+							assert.ok(res.body.dueDate);
+							assert.ok(res.body.isDone != null);
 
 							request(url)
-								.del("/api/todos")
-								.send()
-							done();
+								.del("/api/todos/" + res.body._id)
+								.set('access_token', token)
+								.end(function (err, res) {
+									if(err) {
+										throw err;
+									}
+									assert.equal(204, res.status);
+									done();
+								});
 						});
 				});
 		});
