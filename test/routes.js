@@ -3,7 +3,7 @@ var request = require('supertest');
 var config = require('./config.js');
 var _ = require('lodash');
 
-describe('Routing', function () {
+describe('Routes', function () {
 	var url = config.API_URL;
 
 	var generateRandomString = function () {
