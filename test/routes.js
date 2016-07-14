@@ -1,11 +1,10 @@
 var assert = require('assert');
 var request = require('supertest');
-var config = require('../web.config.js');
+var config = require('./config.js');
 var _ = require('lodash');
 
 describe('Routing', function () {
-	//var url = config.PRODUCTION_URL;
-	var url = config.DEV_URL;
+	var url = config.API_URL;
 
 	var generateRandomString = function () {
 		var randomNumStr = Math.random().toString();
@@ -49,6 +48,18 @@ describe('Routing', function () {
 						done();
 					});
 			});
+	});
+
+	describe('root route', function () {
+		it('should reply with hello message', function (done) {
+			request(url)
+				.get('/')
+				.end(function (err, res) {
+					assert.equal(200, res.status);
+					assert.equal('hello from todos API', res.text);
+					done();
+				});
+		});
 	});
 
 	describe('auth controller', function () {
@@ -105,7 +116,9 @@ describe('Routing', function () {
 						});
 				});
 		});
+	});
 
+	describe("todos controller", function () {
 		it('should be able to get todos', function (done) {
 			request(url)
 				.post('/login')
@@ -164,10 +177,39 @@ describe('Routing', function () {
 								.del("/api/todos/" + res.body._id)
 								.set('access_token', token)
 								.end(function (err, res) {
-									if(err) {
+									if (err) {
 										throw err;
 									}
 									assert.equal(204, res.status);
+									done();
+								});
+						});
+				});
+		});
+
+		it('should be able to update todos', function (done) {
+			request(url)
+				.post('/login')
+				.send(commonUser)
+				.end(function (err, res) {
+					var token = res.body.token;
+					request(url)
+						.get("/api/todos")
+						.set('access_token', token)
+						.end(function (err, res) {
+							var idx = _.findIndex(res.body, function (todo) {
+								return todo._id == commonTodo._id;
+							});
+
+							var todo = res.body[idx];
+							todo.title = "modified";
+							todo.isDone = true;
+
+							request(url)
+								.put("/api/todos/" + todo._id)
+								.set("access_token", token)
+								.end(function (err, res) {
+									assert.equal(200, res.status);
 									done();
 								});
 						});
