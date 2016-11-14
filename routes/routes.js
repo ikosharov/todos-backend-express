@@ -1,7 +1,6 @@
 var express = require('express');
 var todosController = require('../controllers/todos');
 var usersController = require('../controllers/users');
-var authController = require('../controllers/auth');
 
 var router = express.Router();
 
@@ -10,11 +9,11 @@ router.get('/', function(req, res){
 });
 
 router.post('/login', function(req, res){
-  authController.login(req, res);
+  usersController.login(req, res);
 });
 
 router.post('/signup', function(req, res){
-  authController.signup(req, res);
+  usersController.signup(req, res);
 });
 
 router.get('/api/todos', function(req, res){

@@ -1,5 +1,4 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var Schema = require('mongoose').Schema;
 var todoSchema = require('./todo');
 
 var usernameValidator = [

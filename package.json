@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-debug": "cross-env NODE_ENV=test mocha test/routes.js --debug-brk",
-    "test": "cross-env NODE_ENV=prod mocha test/routes.js"
+    "test": "cross-env NODE_ENV=test mocha test/routes.js"
   },
   "repository": {
     "type": "git",
