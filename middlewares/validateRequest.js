@@ -3,7 +3,6 @@ var config = require('../web.config');
 var usersController = require('../controllers/users');
 
 module.exports = function(req, res, next) {
-  // var token = (req.body && req.body.access_token) || (req.query && req.query.access_token);
   var token = req.headers["access_token"];
 
   console.log('validating request...');
