@@ -17,23 +17,23 @@ router.post('/signup', function(req, res){
 });
 
 router.get('/api/todos', function(req, res){
-  return todosController.getTodos(req, res);
+  todosController.getTodos(req, res);
 });
 
 router.get('/api/todos/:id', function(req, res){
-  return todosController.getTodo(req, res);
+  todosController.getTodo(req, res);
 });
 
 router.post('/api/todos', function(req, res){
-  return todosController.createTodo(req, res);
+  todosController.createTodo(req, res);
 });
 
 router.put('/api/todos/:id', function(req, res){
-  return todosController.updateTodo(req, res);
+  todosController.updateTodo(req, res);
 });
 
 router.delete('/api/todos/:id', function(req, res){
-  return todosController.deleteTodo(req, res);
+  todosController.deleteTodo(req, res);
 });
 
 module.exports = router;
