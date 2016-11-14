@@ -1,4 +1,4 @@
-# REST API using NodeJS + ExpressJS + MongooseJS
+# A sessionless todos REST API using NodeJS + ExpressJS + MongooseJS
 Live demo at: https://todos-backend-express-v2.herokuapp.com/
 
 ### To run locally:
